@@ -1,1 +1,6 @@
 D:\Code\IB\Kaziss\Kaziss\bin\Debug\Kaziss.exe.config
+D:\Code\IB\Kaziss\Kaziss\bin\Debug\Kaziss.exe
+D:\Code\IB\Kaziss\Kaziss\bin\Debug\Kaziss.pdb
+D:\Code\IB\Kaziss\Kaziss\obj\Debug\Kaziss.csprojResolveAssemblyReference.cache
+D:\Code\IB\Kaziss\Kaziss\obj\Debug\Kaziss.exe
+D:\Code\IB\Kaziss\Kaziss\obj\Debug\Kaziss.pdb
