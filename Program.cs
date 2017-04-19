@@ -66,7 +66,7 @@ namespace Kaziss
         {
             double index = 0;
 
-            foreach(Letter letter in letters)
+            foreach (Letter letter in letters)
             {
                 index = index + Math.Pow(letter.freqency, 2);
             }
@@ -78,7 +78,7 @@ namespace Kaziss
         static void read_only_count(List<Letter> letters, int count, string file_name)
         {
 
-            foreach(Letter letter in letters)
+            foreach (Letter letter in letters)
             {
                 letter.freqency = 0;
             }
@@ -130,7 +130,7 @@ namespace Kaziss
             return line;
         }
 
-        static void frequency_recount (int start_index, int count, List<Letter> letters)
+        static void frequency_recount(int start_index, int count, List<Letter> letters)
         {
             StreamReader reader;
             reader = new StreamReader("fixed.txt");
@@ -155,6 +155,29 @@ namespace Kaziss
             {
                 letter.freqency = letter.freqency / cuted_line.Length;
             }
+        }
+
+        static string move_letters_by_index(int move_index, List<Letter> letters_clean, string line, int start_index, int count)
+        {
+            //string test_line = "абвгдежзийклмнопрстуфхцчшщъыьэюя";
+
+            for (int i = start_index; i < line.Length; i += count)
+            {
+                int test_index = letters_clean.IndexOf(letters_clean.Find(x => x.name == line[i]));
+                line = line.Remove(i, 1);
+                test_index += move_index;
+                if (test_index < 0)
+                {
+                    test_index += 32;
+                }
+                if (test_index >= 32)
+                {
+                    test_index -= 32;
+                }
+                line = line.Insert(i, Convert.ToString(letters_clean[test_index].name));
+            }
+
+            return line;
         }
 
         static void Main(string[] args)
@@ -212,7 +235,7 @@ namespace Kaziss
 
             Console.WriteLine("1. Печать таблицы");
             Console.WriteLine("2. Печать текста по длине ключа");
-            Console.WriteLine("3. Заменить букву");
+            Console.WriteLine("3. Сдвинуть буквы");
             Console.WriteLine("4. Изменить точку вхождения");
             Console.WriteLine("5. Печать расшифрованого текста");
             Console.WriteLine("9. Выход");
@@ -245,17 +268,26 @@ namespace Kaziss
                     case 3:
                         {
                             Console.WriteLine("3");
-                            Console.Write("Какую буву: ");
+
+                            Console.Write("На какое значение: ");
+                            int move_index = Convert.ToInt32(Console.ReadLine());
+
+                            Console.WriteLine("Сдвиг на " + move_index + " букв");
+
+                            text_line = move_letters_by_index(move_index, letters_clean, text_line, start_index, zer);
+
+                            /*Console.Write("Какую буву: ");
                             char b = Convert.ToChar(Console.ReadLine());
                             Console.Write("На какую буву: ");
                             char a = Convert.ToChar(Console.ReadLine());
-                            text_line = find_and_replace(start_index, zer, a, b, text_line);
+                            text_line = find_and_replace(start_index, zer, a, b, text_line);*/
+
                             break;
                         }
                     case 4:
                         {
                             Console.WriteLine("4");
-                            if (start_index == (zer - 1))
+                            if (start_index == zer)
                             {
                                 start_index = 0;
                                 show_index = 1;
@@ -274,6 +306,11 @@ namespace Kaziss
                             Console.WriteLine(text_line);
                             break;
                         }
+                    case -2:
+                        {
+                            Console.WriteLine("-2");
+                            break;
+                        }
                     default:
                         break;
                 }
@@ -283,7 +320,7 @@ namespace Kaziss
 
                 Console.WriteLine("1. Печать таблицы");
                 Console.WriteLine("2. Печать текста по длине ключа");
-                Console.WriteLine("3. Заменить букву");
+                Console.WriteLine("3. Сдвинуть буквы");
                 Console.WriteLine("4. Изменить точку вхождения");
                 Console.WriteLine("5. Печать расшифрованого текста");
                 Console.WriteLine("9. Выход");
